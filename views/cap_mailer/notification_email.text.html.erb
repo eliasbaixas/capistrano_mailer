@@ -19,17 +19,18 @@
       <% end %>
 
       <p style="margin: 10px 20px; font-weight: bold;">Released: <%= @date %> at <%= @time %></p>
-      
-      <%= @sections.map { |section|
-        data = @section_data[section.to_sym]
-        if !data.empty?
-          if %w(extra_information release_data).include?(section)
-            render :partial => 'section_custom.html.erb', :locals => {:section_title => section, :data => data}
-          else
-            render :partial => 'section.html.erb', :locals => {:section_title => section, :data => data}
-          end
-        end
-      }.join unless @sections.nil? %>
+      <% unless @sections.nil? %>
+        <% @sections.map do |section| %>
+          <% data = @section_data[section.to_sym] %>
+          <% if !data.empty? %>
+            <% if %w(extra_information release_data).include?(section) %>
+              <%= render :partial => 'section_custom.html.erb', :locals => {:section_title => section, :data => data} %>
+            <% else %>
+              <%= render :partial => 'section.html.erb', :locals => {:section_title => section, :data => data} %>
+            <% end %>
+          <% end %>
+        <% end  %>
+      <% end  %>
    </div>
    
     <p style="margin: 8px 0 20px 20px; padding: 0px; font-style: italic;" >
