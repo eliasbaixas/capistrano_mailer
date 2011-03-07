@@ -26,7 +26,7 @@ class CapMailer < ActionMailer::Base
   end
 
   # self.prepend_view_path(default_base_config[:template_root])
-  ActionController::Base.prepend_view_path default_base_config[:template_root]
+  self.view_paths = ActionView::Base.process_view_paths(default_base_config[:template_root])
 
   def self.reloadable?() false end
     
